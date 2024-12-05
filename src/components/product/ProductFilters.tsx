@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSearchStore } from '../../store/useSearchStore';
 
 const categories = ['All', 'Electronics', 'Accessories', 'Clothing'];
