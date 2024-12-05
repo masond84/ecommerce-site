@@ -34,7 +34,7 @@ export const SignUpForm = () => {
     };
 
     const formatPhoneNumber = (phone: string) => {
-        const cleaned = phone.replace(/\D/g, ''); // Remove all non-digit characters
+        const cleaned = phone.replace(/\D/g, '');
         if (cleaned.length <= 3) {
             return cleaned;
         }
@@ -48,8 +48,8 @@ export const SignUpForm = () => {
         const { id, value } = e.target;
 
         if (id === 'phoneNumber') {
-            const numericValue = value.replace(/\D/g, ''); // Allow only digits
-            if (numericValue.length > 10) return; // Restrict length to 10 digits
+            const numericValue = value.replace(/\D/g, '');
+            if (numericValue.length > 10) return;
             const formattedPhone = formatPhoneNumber(numericValue);
             setFormData((prev) => ({ ...prev, [id]: formattedPhone }));
             return;
@@ -100,7 +100,6 @@ export const SignUpForm = () => {
         }
 
         setError('');
-        // Handle signup logic - replace with actual API call
         console.log('Sign Up Data:', formData);
     };
 
