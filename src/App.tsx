@@ -6,25 +6,27 @@ import { FeaturedProducts } from './pages/FeaturedProducts';
 import { Cart } from './pages/Cart';
 import { ProductDetails } from './pages/ProductDetails';
 import { Profile } from './pages/Profile';
+import { Auth } from './pages/Auth'; // Login/Signup form
 import { Checkout } from './pages/Checkout';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/featured" element={<FeaturedProducts />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+      <Router>
+        <div className="min-h-screen bg-gray-50">
+          <Navbar />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/featured" element={<FeaturedProducts />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/auth" element={<Auth />} /> {/* Login/Signup page */}
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
   );
 }
 
