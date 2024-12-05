@@ -4,9 +4,10 @@ import { ChevronDown } from 'lucide-react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
 const categories = [
-  'Electronics',
-  'Accessories',
-  'Clothing',
+  { name: 'Featured', path: '/featured' },
+  { name: 'Best Selling', path: '/category/electronics' },
+  { name: 'Our Favorites', path: '/category/accessories' },
+  { name: 'Sale', path: '/category/clothing' },
 ];
 
 const pages = [
@@ -25,11 +26,11 @@ export const Navigation = () => {
     <nav className="flex items-center space-x-8">
       {categories.map((category) => (
         <Link
-          key={category}
-          to={`/category/${category.toLowerCase()}`}
-          className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+          key={category.name}
+          to={category.path}
+          className="font-montserrat font-semibold text-gray-600 hover:text-gray-900 text-sm"
         >
-          {category}
+          {category.name}
         </Link>
       ))}
       <div ref={dropdownRef} className="relative">
@@ -46,7 +47,7 @@ export const Navigation = () => {
               <Link
                 key={page.name}
                 to={page.path}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="font-montserrat font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 {page.name}
               </Link>
