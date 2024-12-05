@@ -13,10 +13,7 @@ export const SignUpForm = () => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [passwordsMatch, setPasswordsMatch] = useState(false);
 
-    const validateEmail = (email: string) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
+    const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const calculatePasswordStrength = (password: string) => {
         let strength = 0;
@@ -50,16 +47,13 @@ export const SignUpForm = () => {
         if (id === 'phoneNumber') {
             const numericValue = value.replace(/\D/g, '');
             if (numericValue.length > 10) return;
-            const formattedPhone = formatPhoneNumber(numericValue);
-            setFormData((prev) => ({ ...prev, [id]: formattedPhone }));
+            setFormData((prev) => ({ ...prev, [id]: formatPhoneNumber(numericValue) }));
             return;
         }
 
         setFormData((prev) => ({ ...prev, [id]: value }));
 
-        if (id === 'password') {
-            calculatePasswordStrength(value);
-        }
+        if (id === 'password') calculatePasswordStrength(value);
 
         if (id === 'confirmPassword' || id === 'password') {
             setPasswordsMatch(
@@ -192,7 +186,7 @@ export const SignUpForm = () => {
                         }`}
                     >
                         {passwordsMatch
-                            ? '✔️ Your passwords match!'
+                            ? '✔ Your passwords match!'
                             : '❌ Passwords do not match.'}
                     </p>
                 )}
