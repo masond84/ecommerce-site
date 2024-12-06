@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { Home } from './pages/Home';
 import { FeaturedProducts } from './pages/FeaturedProducts';
+import { BestSelling } from './pages/BestSelling';
+import { OurFavorites } from './pages/OurFavorites';
+import { Sale } from './pages/Sale';
 import { Cart } from './pages/Cart';
 import { ProductDetails } from './pages/ProductDetails';
 import { Profile } from './pages/Profile';
@@ -17,6 +20,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/featured" element={<FeaturedProducts />} />
+            <Route path="/best-selling" element={<BestSelling />} />
+            <Route path="/our-favorites" element={<OurFavorites />} />
+            <Route path="/sale" element={<Sale />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/profile" element={<Profile />} />
