@@ -4,19 +4,19 @@ import { Product } from '../types';
 export const productService = {
   async getAllProducts(params?: { category?: string; search?: string }) {
     let products = [...mockProducts];
-    
+
     if (params?.category) {
       products = products.filter(product => product.category === params.category);
     }
-    
+
     if (params?.search) {
       const searchLower = params.search.toLowerCase();
-      products = products.filter(product => 
-        product.name.toLowerCase().includes(searchLower) ||
-        product.description.toLowerCase().includes(searchLower)
+      products = products.filter(product =>
+          product.name.toLowerCase().includes(searchLower) ||
+          product.description.toLowerCase().includes(searchLower)
       );
     }
-    
+
     return products;
   },
 

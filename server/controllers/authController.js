@@ -50,4 +50,21 @@ const loginUser = async (req, res) => {
     }
 };
 
+// After a successful login:
+const token = generateToken(user.id);
+
+res
+    .cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // set to true in prod
+        sameSite: 'strict'
+    })
+    .json({
+        _id: user.id,
+        username: user.username,
+        email: user.email,
+        token // optional: might omit sending the token in JSON if using solely cookies
+    });
+
+
 module.exports = { registerUser, loginUser };

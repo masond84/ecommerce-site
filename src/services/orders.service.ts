@@ -17,14 +17,14 @@ export const orderService = {
   async createOrder(orderData: OrderData) {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     const newOrder = {
       id: Date.now().toString(),
       ...orderData,
       status: 'pending',
       createdAt: new Date().toISOString(),
     };
-    
+
     mockOrders.push(newOrder);
     return newOrder;
   },

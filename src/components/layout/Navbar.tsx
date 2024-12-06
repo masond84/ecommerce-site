@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
-import { useAuthStore } from '../../store/useAuthStore'; // Import auth store
+import { useAuthStore } from '../../store/useAuthStore';
 import { TopBanner } from './TopBanner';
 import { SearchBar } from './SearchBar';
 import { Navigation } from './Navigation';
+
 
 export const Navbar = () => {
   const cartItems = useCartStore((state) => state.items);
@@ -47,12 +48,9 @@ export const Navbar = () => {
                   </span>
                   )}
                 </Link>
-                <button
-                    onClick={handleProfileClick}
-                    className="text-gray-600 hover:text-gray-900"
-                >
+                <Link to="/profile" className="text-gray-600 hover:text-gray-900">
                   <User className="h-6 w-6" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>

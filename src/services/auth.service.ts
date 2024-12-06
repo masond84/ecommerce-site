@@ -21,7 +21,7 @@ export const authService = {
   async login(credentials: LoginCredentials): Promise<{ user: User; token: string }> {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     if (credentials.email === 'demo@example.com' && credentials.password === 'password') {
       return {
         user: MOCK_USER,
@@ -34,7 +34,7 @@ export const authService = {
   async register(data: RegisterData): Promise<{ user: User; token: string }> {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     return {
       user: {
         id: '2',
