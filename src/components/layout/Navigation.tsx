@@ -5,9 +5,9 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 
 const categories = [
   { name: 'Featured', path: '/featured' },
-  { name: 'Best Selling', path: '/category/electronics' },
-  { name: 'Our Favorites', path: '/category/accessories' },
-  { name: 'Sale', path: '/category/clothing' },
+  { name: 'Best Selling', path: '/best-selling' },
+  { name: 'Our Favorites', path: '/our-favorites' },
+  { name: 'Sale', path: '/sale' },
 ];
 
 const pages = [
