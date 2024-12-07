@@ -6,7 +6,8 @@ import { useCartStore } from '../store/useCartStore';
 export const Cart = () => {
   const navigate = useNavigate();
   const items = useCartStore((state) => state.items);
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
@@ -30,14 +31,14 @@ export const Cart = () => {
           </div>
           <div className="mt-8 border-t pt-4">
             <div className="flex justify-between items-center mb-4">
-              <span className="text-lg font-medium">Total:</span>
-              <span className="text-2xl font-bold">${total.toFixed(2)}</span>
+              <span className="text-lg font-medium">Total Price:</span>
+              <span className="text-2xl font-bold">${totalPrice.toFixed(2)}</span>
             </div>
             <button
-              onClick={() => navigate('/checkout')}
-              className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600"
+              onClick={() => clearCart()}
+              className="w-full bg-red-500 text-white py-3 rounded-md hover:bg-red-600"
             >
-              Proceed to Checkout
+              Clear Cart
             </button>
           </div>
         </>
@@ -45,3 +46,5 @@ export const Cart = () => {
     </div>
   );
 };
+
+export default Cart;

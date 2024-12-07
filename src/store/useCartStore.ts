@@ -1,5 +1,13 @@
 import { create } from 'zustand';
-import { CartItem } from '../types';
+import Cookies from 'js-cookie';
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
 
 interface CartStore {
   items: CartItem[];
@@ -9,31 +17,46 @@ interface CartStore {
   clearCart: () => void;
 }
 
+const CART_COOKIE_NAME = 'cart_items';
+
 export const useCartStore = create<CartStore>((set) => ({
-  items: [],
+  // Initialize cart from cookies
+  items: JSON.parse(Cookies.get(CART_COOKIE_NAME) || '[]'),
+
   addItem: (item) =>
     set((state) => {
       const existingItem = state.items.find((i) => i.id === item.id);
       if (existingItem) {
-        return {
-          items: state.items.map((i) =>
-            i.id === item.id
-              ? { ...i, quantity: i.quantity + item.quantity }
-              : i
-          ),
-        };
+        alert('This product is already in your cart.');
+        return state;
       }
-      return { items: [...state.items, item] };
+      const updatedItems = [...state.items, item];
+      // Save to cookies
+      Cookies.set(CART_COOKIE_NAME, JSON.stringify(updatedItems), { expires: 7 });
+      return { items: updatedItems };
     }),
+
   removeItem: (itemId) =>
-    set((state) => ({
-      items: state.items.filter((i) => i.id !== itemId),
-    })),
+    set((state) => {
+      const updatedItems = state.items.filter((i) => i.id !== itemId);
+      // Update cookies
+      Cookies.set(CART_COOKIE_NAME, JSON.stringify(updatedItems), { expires: 7 });
+      return { items: updatedItems };
+    }),
+
   updateQuantity: (itemId, quantity) =>
-    set((state) => ({
-      items: state.items.map((i) =>
+    set((state) => {
+      const updatedItems = state.items.map((i) =>
         i.id === itemId ? { ...i, quantity } : i
-      ),
-    })),
-  clearCart: () => set({ items: [] }),
+      );
+      // Update cookies
+      Cookies.set(CART_COOKIE_NAME, JSON.stringify(updatedItems), { expires: 7 });
+      return { items: updatedItems };
+    }),
+
+  clearCart: () => {
+    // Clear cookies and reset cart state
+    Cookies.remove(CART_COOKIE_NAME);
+    set({ items: [] });
+  },
 }));
