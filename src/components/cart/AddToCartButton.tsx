@@ -17,3 +17,4 @@ const AddToCartButton = ({ product }: { product: Product }) => {
 
 export default AddToCartButton;
 
+

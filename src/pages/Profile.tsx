@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuthStore } from '../store/useAuthStore';
 import { LoginForm } from '../components/auth/LoginForm';
 
-export const Profile = () => {
+export const Profile: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuthStore();
 
   if (!isAuthenticated) {
@@ -27,6 +27,14 @@ export const Profile = () => {
             <label className="block text-sm font-medium text-gray-700">Email</label>
             <p className="mt-1 text-lg">{user.email}</p>
           </div>
+          {user.phoneNumber && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <p className="mt-1 text-lg">{user.phoneNumber}</p>
+            </div>
+          )}
           <button
             onClick={logout}
             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
@@ -38,3 +46,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+
