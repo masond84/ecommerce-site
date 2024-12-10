@@ -8,16 +8,15 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h2 className="text-xl font-bold mb-4">ShopHub</h2>
-            <p className="text-gray-300 mb-4">
-            At ShopHub, we connect you with the latest trends in electronics, accessories, and fashion, 
-            all in one convenient place. 
-            Let us help you discover products you'll love while enjoying a beautifully crafted online store.
+            <h2 className="text-xl font-bold mb-4 font-montserrat">Join Us, And Become A Subscriber!</h2>
+            <p className="text-gray-300 mb-4 font-montserrat">
+            We connect you with the latest trends in all your favorite products, all in one convenient place. 
+            Subscribe to us for exclusive offers, and deals!
             </p>
           </div>
 
-          <div>
-            <FooterColumn title="Subscribe">
+          <div className="font-montserrat">
+            <FooterColumn title="Sign Up!">
               <div className="text-gray-300 mb-4">
                 <NewsletterForm />
               </div>
@@ -25,18 +24,17 @@ export const Footer = () => {
           </div>
 
           <FooterColumn title="Products">
-            <FooterLink to="">All Products</FooterLink>
-            <FooterLink to="/clothing">Clothing</FooterLink>
-            <FooterLink to="/accessories">Acessories</FooterLink>
-            <FooterLink to="/electronics">Electronics</FooterLink>
+            <FooterLink to="/featured">All Products</FooterLink>
+            <FooterLink to="/best-selling">Best Selling</FooterLink>
+            <FooterLink to="/our-favorites">Our Favorites</FooterLink>
+            <FooterLink to="/sale">Sale</FooterLink>
           </FooterColumn>
 
           <FooterColumn title="Company">
             <FooterLink to="/about">About Us</FooterLink>
-            <FooterLink to="/careers">Careers</FooterLink>
-            <FooterLink to="/faqs">FAQs</FooterLink>
-            <FooterLink to="/teams">Teams</FooterLink>
             <FooterLink to="/contact">Contact Us</FooterLink>
+            <FooterLink to="/faqs">FAQs</FooterLink>
+            <FooterLink to="/teams">Team</FooterLink>
           </FooterColumn>
         </div>
       </div>

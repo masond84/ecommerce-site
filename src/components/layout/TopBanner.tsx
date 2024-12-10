@@ -2,7 +2,7 @@ import { Truck, RotateCcw } from 'lucide-react';
 
 export const TopBanner = () => {
   return (
-    <div className="bg-gray-900 text-white py-2">
+    <div className="bg-[#153A5B] text-white py-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center text-sm">
           <div className="flex items-center space-x-2">
