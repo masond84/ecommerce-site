@@ -11,6 +11,9 @@ import { ProductDetails } from './pages/ProductDetails';
 import { Profile } from './pages/Profile';
 import { Checkout } from './pages/Checkout';
 import { Signup } from './pages/Signup';
+import { About } from './pages/About';
+import { Contact } from './pages/Contact';
+import { Faqs } from './pages/Faqs'
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faqs" element={<Faqs />} />
           </Routes>
         </main>
         <Footer />
