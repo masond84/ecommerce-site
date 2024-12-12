@@ -13,6 +13,8 @@ export interface CartItem extends Product {
 
 export interface User {
   id: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  name: string;
+  role?: string;
 }

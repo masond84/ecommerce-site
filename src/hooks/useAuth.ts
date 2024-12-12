@@ -14,6 +14,8 @@ export const useAuth = () => {
       setLoading(true);
       setError(null);
       const data = await authService.login(credentials);
+      // Store token
+      localStorage.setItem('token', data.token);
       setUser(data.user);
       navigate('/');
     } catch (err) {
@@ -28,6 +30,8 @@ export const useAuth = () => {
       setLoading(true);
       setError(null);
       const response = await authService.register(data);
+      // Store token
+      localStorage.setItem('token', response.token);
       setUser(response.user);
       navigate('/');
     } catch (err) {
