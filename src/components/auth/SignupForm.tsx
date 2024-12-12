@@ -71,7 +71,7 @@ export const SignUpForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { firstName, lastName, email, password, confirmPassword, phoneNumber } = formData;
+    const { firstName, lastName, email, password, phoneNumber } = formData;
 
     console.log('Submitting signup form with data:', formData);
 
