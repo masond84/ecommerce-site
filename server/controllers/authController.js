@@ -2,51 +2,88 @@ const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 const bcrypt = require('bcryptjs');
 
-// User registration
 const registerUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    try {
+        const { firstName, lastName, email, password, phoneNumber } = req.body;
 
-    const userExists = await User.findOne({ email });
+        // Validate required fields
+        if (!firstName || !lastName || !email || !password) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
 
-    if (userExists) {
-        return res.status(400).json({ message: 'User already exists' });
-    }
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ message: 'Please enter a valid email.' });
+        }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
 
-    const user = await User.create({
-        username,
-        email,
-        password: hashedPassword,
-    });
+        // Password length check
+        if (password.length < 8) {
+            return res.status(400).json({ message: 'Password must be at least 8 characters long.' });
+        }
 
-    if (user) {
-        res.status(201).json({
-            _id: user.id,
-            username: user.username,
-            email: user.email,
-            token: generateToken(user.id),
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user
+        const newUser = new User({
+            firstName,
+            lastName,
+            email,
+            password: hashedPassword,
+            phoneNumber,
         });
-    } else {
-        res.status(400).json({ message: 'Invalid user data' });
+
+        const savedUser = await newUser.save();
+
+        const token = generateToken(savedUser._id);
+
+        res.status(201).json({
+            message: 'User created successfully!',
+            user: {
+                id: savedUser._id,
+                firstName: savedUser.firstName,
+                lastName: savedUser.lastName,
+                email: savedUser.email,
+                role: savedUser.role,
+            },
+            token
+        });
+    } catch (error) {
+        console.error('Error in registerUser:', error.message || error);
+        res.status(500).json({ message: 'Error creating user', error });
     }
 };
 
-// User login
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
 
-    const user = await User.findOne({ email });
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-        res.json({
-            _id: user.id,
-            username: user.username,
-            email: user.email,
-            token: generateToken(user.id),
-        });
-    } else {
-        res.status(401).json({ message: 'Invalid email or password' });
+        if (user && (await bcrypt.compare(password, user.password))) {
+            const token = generateToken(user._id);
+            res.json({
+                user: {
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    role: user.role
+                },
+                token
+            });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
+        }
+    } catch (error) {
+        console.error('Error in loginUser:', error.message || error);
+        res.status(500).json({ message: 'Error logging in', error });
     }
 };
 

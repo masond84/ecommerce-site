@@ -1,16 +1,13 @@
 const express = require('express');
-const { getUsers, getUserById, createUser } = require('../controllers/userController');
+const { getUsers, getUserById } = require('../controllers/userController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// Fetch all users 
-router.get('/', getUsers);
+// Fetch all users (admin only)
+router.get('/', protect, admin, getUsers);
 
 // Fetch a single user by ID
-router.get('/:id', getUserById);
-
-// Create a new user (signup)
-router.post('/', createUser);
+router.get('/:id', protect, admin, getUserById);
 
 module.exports = router;
