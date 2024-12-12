@@ -1,10 +1,11 @@
-// routes/orderRoutes.js
 const express = require('express');
-const { getOrdersForUser } = require('../controllers/orderController');
-const { protect } = require('../middleware/authMiddleware');
+const { createOrder, getUserOrders } = require('../controllers/orderController');
+const { protect } = require('../middleware/authMiddleware'); // Ensure user authentication
 
 const router = express.Router();
 
-router.get('/user/:userId', protect, getOrdersForUser);
+router.post('/', protect, createOrder); // Create a new order
+router.get('/', protect, getUserOrders); // Fetch user orders
 
 module.exports = router;
+

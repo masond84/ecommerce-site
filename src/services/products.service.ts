@@ -1,5 +1,4 @@
 import { mockProducts } from '../data/products';
-import { Product } from '../types';
 
 export const productService = {
   async getAllProducts(params?: { category?: string; search?: string }) {

@@ -15,9 +15,9 @@ export const About = () => {
       description: 'Award-winning designer passionate about user experience',
     },
     {
-      name: 'Name Here',
+      name: 'Devin Mason',
       role: 'Product Manager',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80',
+      image: '',
       description: 'Strategic thinker driving product innovation',
     },
   ];

@@ -1,29 +1,39 @@
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
 import { LoginForm } from '../components/auth/LoginForm';
-import api from '../services/api';
 import { Link } from 'react-router-dom';
+import { Order } from '../types';
 
 export const Profile = () => {
   const { user, isAuthenticated, logout } = useAuthStore();
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [error, setError] = useState<string | null>(null); // For error handling
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Fetch orders when the user is authenticated
       const fetchOrders = async () => {
         try {
-          const response = await api.get(`/orders/user/${user?.id}`); // Fetch orders for this user
-          setOrders(response.data);
+          const response = await fetch('http://localhost:5000/api/orders', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to fetch orders');
+          }
+
+          const data = await response.json();
+          setOrders(data);
         } catch (err) {
           console.error('Error fetching orders:', err);
           setError('Failed to fetch your orders. Please try again later.');
         }
       };
+
       fetchOrders();
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return (
@@ -53,27 +63,31 @@ export const Profile = () => {
             <label className="block text-sm font-medium text-gray-700">Email</label>
             <p className="mt-1 text-lg">{user?.email}</p>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Role</label>
-            <p className="mt-1 text-lg capitalize">{user?.role}</p>
-          </div>
       </div>
 
-      <h2 className='text-xl font-bold mt-6'>Your Orders</h2>
+      <h2 className="text-xl font-bold mt-6">Your Orders</h2>
       {error && <p className="text-red-500 mt-2">{error}</p>}
-      <ul className="mt-4">
-        {orders.length > 0 ? (
-          orders.map((order) => (
-            <li key={order.id} className="bg-gray-100 p-4 mb-2 rounded">
-              <p><strong>Order ID:</strong> {order.id}</p>
-              <p><strong>Total:</strong> ${order.total}</p>
+      {orders.length > 0 ? (
+        <ul>
+          {orders.map((order) => (
+            <li key={order._id} className="bg-gray-100 p-4 mb-2 rounded">
+              <p><strong>Order ID:</strong> {order._id}</p>
+              <p><strong>Total:</strong> ${order.totalAmount.toFixed(2)}</p>
               <p><strong>Status:</strong> {order.status}</p>
+              <p><strong>Shipping Address:</strong> {order.shippingAddress}</p>
+              <ul>
+                {order.items.map((item) => (
+                  <li key={item.productId._id}>
+                    {item.productId.name} x {item.quantity}
+                  </li>
+                ))}
+              </ul>
             </li>
-          ))
-        ) : (
-          <p className="text-gray-500">You have no orders yet.</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <p>No orders found</p>
+      )}
       
       <button
           onClick={logout}
